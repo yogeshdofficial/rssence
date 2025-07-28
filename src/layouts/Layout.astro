@@ -1,22 +1,64 @@
-<!doctype html>
+---
+import "../styles/global.css";
+import { Font } from "astro:assets";
+import Header from "../components/Header.astro";
+import Sidebar from "../components/Sidebar.astro";
+---
+
+<Font cssVariable="--font-roboto" preload />
+<Font cssVariable="--font-oswald" preload />
+
 <html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro Basics</title>
-	</head>
-	<body>
-		<slot />
-	</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+    <title>Astro Basics</title>
+  </head>
+  <body class="">
+    <!-- <div class="drawer">
+      <input id="my-drawer" type="checkbox" class="drawer-toggle" />
+
+      <div class="drawer-content">
+        <Header />
+        <slot />
+      </div>
+    </div>
+    <Sidebar /> -->
+
+    <div class="drawer">
+      <input id="my-drawer" type="checkbox" class="drawer-toggle" />
+
+      <!-- Main content -->
+      <div class="drawer-content">
+        <!-- Toggle button -->
+        <label for="my-drawer" class="btn btn-primary drawer-button m-4">
+          ☰ Open Sidebar
+        </label>
+        <p class="p-4"><slot /></p>
+      </div>
+
+      <!-- Sidebar -->
+      <Sidebar />
+    </div>
+
+    <script>
+      (function () {
+        const theme = localStorage.getItem("theme");
+        if (theme) {
+          document.documentElement.setAttribute("data-theme", theme);
+        }
+      })();
+    </script>
+  </body>
 </html>
 
 <style>
-	html,
-	body {
-		margin: 0;
-		width: 100%;
-		height: 100%;
-	}
+  html,
+  body {
+    margin: 0;
+    width: 100%;
+    height: 100%;
+  }
 </style>

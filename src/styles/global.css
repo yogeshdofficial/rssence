@@ -1,0 +1,10 @@
+@import "tailwindcss";
+@plugin "daisyui" {
+  themes: all;
+}
+
+
+@theme inline {
+    --font-sans: var(--font-roboto);
+    --font-oswald: var(--font-oswald);
+}

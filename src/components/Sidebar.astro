@@ -1,0 +1,29 @@
+---
+import { categorizedFeeds } from "../constants/categorizedFeeds";
+const { category } = Astro.params;
+---
+
+<div class="drawer-side">
+  <label for="my-drawer" class="drawer-overlay"></label>
+  <div class="p-4 w-80 min-h-full bg-base-200 text-base-content flex flex-col">
+    <!-- 🔴 Close Button (Top Right Corner) -->
+    <div class="flex justify-end">
+      <label for="my-drawer" class="btn btn-sm btn-circle btn-ghost">
+        ❌
+      </label>
+    </div>
+
+    <!-- Menu Items -->
+    <ul class="menu mt-4">
+      {
+        Object.keys(categorizedFeeds).map((category) => {
+          return (
+            <li>
+              <a href={"/" + category}>{category}</a>
+            </li>
+          );
+        })
+      }
+    </ul>
+  </div>
+</div>

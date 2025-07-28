@@ -1,0 +1,50 @@
+---
+import type { GetStaticPaths } from "astro";
+import { categorizedFeeds } from "../constants/categorizedFeeds";
+import { getFeedFromUrl } from "../utils/rss";
+import Layout from "../layouts/Layout.astro";
+import Feed from "../components/Feed.astro";
+export const getStaticPaths = (() => {
+  return Object.keys(categorizedFeeds).map((category) => {
+    return {
+      params: { category },
+    };
+  });
+}) satisfies GetStaticPaths;
+
+const { category }: { category: string } = Astro.params;
+
+const feedsPromise = categorizedFeeds[
+  category as keyof typeof categorizedFeeds
+].map((feed) => {
+  return getFeedFromUrl(feed.url);
+});
+
+const feeds = await Promise.all(feedsPromise);
+
+feeds.forEach((feed) => {
+  feed.sort(
+    (a, b) => new Date(b.pubDate).getTime() - new Date(a.pubDate).getTime()
+  );
+});
+
+const feedsWithDomain = Object.fromEntries(
+  feeds.map((feed, i) => {
+    return [
+      categorizedFeeds[category as keyof typeof categorizedFeeds][i].domain,
+      feed,
+    ];
+  })
+);
+---
+
+<Layout>
+  <div class="p-4 flex flex-col gap-3">
+    {
+      Object.keys(feedsWithDomain).map((domain) => {
+        return <Feed domain={domain} feed={feedsWithDomain[domain]} />;
+      })
+    }
+  </div>
+  <!-- <div>{JSON.stringify(feedsWithDomain)}</div> -->
+</Layout>
