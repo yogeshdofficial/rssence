@@ -1,0 +1,15 @@
+---
+const { domains } = Astro.props;
+---
+
+<ul class="flex gap-2 overflow-x-scroll">
+  {
+    domains.map((domain) => {
+      return (
+        <li>
+          <a href={"#" + domain}>{domain}</a>
+        </li>
+      );
+    })
+  }
+</ul>

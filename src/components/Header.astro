@@ -1,52 +1,13 @@
 ---
 import { Icon } from "astro-icon/components";
-const themes = [
-  "light",
-  "dark",
-  "cupcake",
-  "bumblebee",
-  "emerald",
-  "corporate",
-  "synthwave",
-  "retro",
-  "cyberpunk",
-  "valentine",
-  "halloween",
-  "garden",
-  "forest",
-  "aqua",
-  "lofi",
-  "pastel",
-  "fantasy",
-  "wireframe",
-  "black",
-  "luxury",
-  "dracula",
-  "cmyk",
-  "autumn",
-  "business",
-  "acid",
-  "lemonade",
-  "night",
-  "coffee",
-  "winter",
-  "dim",
-  "nord",
-  "sunset",
-  "caramellatte",
-  "abyss",
-  "silk",
-];
+import { themes } from "../constants/themes";
 ---
 
-<header class="flex justify-between p-2">
+<header class="flex justify-between items-center">
   <div>
-    <label for="my-drawer" class="btn btn-primary drawer-button m-4">
-      ☰ Open Sidebar
-    </label>
-    <button class="drawer-icon btn btn-ghost btn-square size-8 text-lg">
+    <label for="my-drawer" class="btn btn-ghost btn-square drawer-button">
       <Icon name={"lucide:menu"} class="text-xl" />
-    </button>
+    </label>
   </div>
   <div>
     <div class="dropdown dropdown-left">
@@ -85,13 +46,12 @@ const themes = [
     </div>
   </div>
 </header>
-
 <script>
   document.addEventListener("DOMContentLoaded", () => {
+    // --- Your existing theme setup code ---
     const radios = document.querySelectorAll('input[name="theme-dropdown"]');
     const currentTheme = localStorage.getItem("theme");
 
-    // Pre-select the saved theme
     if (currentTheme) {
       radios.forEach((radio) => {
         if (radio.value === currentTheme) {
@@ -100,7 +60,6 @@ const themes = [
       });
     }
 
-    // Listen for changes and store theme
     radios.forEach((radio) => {
       radio.addEventListener("change", (e) => {
         const selectedTheme = e.target.value;
@@ -109,10 +68,13 @@ const themes = [
       });
     });
   });
+
+  // You had this stubbed — no need unless drawer logic needed
   (function () {
     const drawerToggle = document.querySelector(".drawer-icon");
     drawerToggle?.addEventListener("change", (e) => {
       const checkbox = document.querySelector("#my-drawer");
+      // Implement drawer toggle logic if needed
     });
   })();
 </script>
