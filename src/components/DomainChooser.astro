@@ -2,11 +2,11 @@
 const { domains } = Astro.props;
 ---
 
-<ul class="flex gap-2 overflow-x-scroll">
+<ul class="flex gap-2 overflow-x-scroll scrollbar-thin max-w-full">
   {
     domains.map((domain) => {
       return (
-        <li>
+        <li class="rounded-sm p-0.5 px-1 border">
           <a href={"#" + domain}>{domain}</a>
         </li>
       );
